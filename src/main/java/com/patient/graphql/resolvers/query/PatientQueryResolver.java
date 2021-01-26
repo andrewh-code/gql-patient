@@ -3,6 +3,7 @@ package com.patient.graphql.resolvers.query;
 import com.patient.domain.model.Patient;
 import com.patient.repository.PatientRepo;
 import com.patient.service.graphql.PatientService;
+import graphql.GraphQLException;
 import graphql.kickstart.tools.GraphQLQueryResolver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -14,9 +15,6 @@ import java.util.Optional;
 public class PatientQueryResolver implements GraphQLQueryResolver {
 
     @Autowired
-    private PatientRepo patientRepo;
-
-    @Autowired
     private PatientService patientService;
 
     public List<Patient> retrieveAllPatientsInfo() {
@@ -25,13 +23,17 @@ public class PatientQueryResolver implements GraphQLQueryResolver {
         return patients;
     }
 
-    public Patient retrievePatientInfoById(Long Id) {
+    public Patient retrievePatientInfoById(Long Id) throws GraphQLException{
 
         if (Id == null){
-            // throw graphql exception
+            throw new GraphQLException("input ID is either blank or null");
         }
-        Patient patient = patientService.retrievePatientInfoById(Id);
-
+        Patient patient;
+        try {
+            patient = patientService.retrievePatientInfoById(Id);
+        } catch (Exception e){
+            throw new GraphQLException(e);
+        }
         return patient;
     }
 
