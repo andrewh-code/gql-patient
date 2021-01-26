@@ -1,0 +1,26 @@
+# queries
+query {
+  retrieveDoctorById(id: 1){
+    id
+    firstName
+    lastName
+    specialty
+    title
+  }
+}
+
+# mutations
+mutation{
+  createNewDoctor(input: {
+    firstName: "new pt"
+    lastName: "new pt",
+    specialty: "occupational"
+    title: PT
+  }) {
+  id
+  firstName
+  lastName
+  specialty
+  title
+}
+}

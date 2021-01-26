@@ -1,4 +1,4 @@
-package com.patient.zgraphql.resolvers.query;
+package com.patient.graphql.resolvers.query;
 
 import com.patient.domain.model.Patient;
 import com.patient.repository.PatientRepo;
