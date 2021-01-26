@@ -4,13 +4,19 @@ enum Title {
     DC,
     MT
 }
+input DocInput {
+    firstName: String
+    lastName: String
+    title: Title
+    specialty: String
+}
 
 type Doc {
     id: ID!
     firstName: String!
     lastName: String!
     title: Title!
-    specialty: String
+    specialty: String!
 }
 
 type Patient {
@@ -21,6 +27,12 @@ type Patient {
     phone: String!
     dob: String!
     docs: [Doc]
+}
+
+type Mutation {
+    #Update doctor's personal information
+    updateDoctorInfo(id: ID!, input: DocInput!): Doc!
+    createNewDoctor(input: DocInput!): Doc!
 }
 
 type Query {
@@ -36,3 +48,4 @@ type Query {
     # retrieve specific patient's information
     retrievePatientInfoById(id: ID): Patient
 }
+
