@@ -1,9 +1,13 @@
 package com.patient.graphql.resolvers.mutation;
 
+import com.patient.PatientApp;
 import com.patient.domain.model.Doc;
 import com.patient.domain.model.graphInput.DocInput;
+import com.patient.exceptions.PatientAppException;
 import com.patient.repository.DocRepo;
 import com.patient.service.graphql.DocService;
+import graphql.GraphQLException;
+import graphql.GraphqlErrorException;
 import graphql.kickstart.tools.GraphQLMutationResolver;
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.service.spi.InjectService;
@@ -34,14 +38,17 @@ public class DocMutationResolver implements GraphQLMutationResolver {
         return newDoc;
     }
 
-    public Doc updateDoctorInfo(Long Id, DocInput docInput){
-
-        Doc existingDoc = docService.retrieveDoctorById(Id);
-        if (existingDoc == null){
-            // throw exception here
+    public Doc updateDoctorInfo(Long Id, DocInput docInput) throws GraphQLException {
+        Doc existingDoc;
+        try {
+            existingDoc = docService.retrieveDoctorById(Id);
+            if (existingDoc == null) {
+                throw new GraphQLException("unable to find existing doctor");
+            }
+            docService.updateDoctor(existingDoc, docInput);
+        } catch (Exception e){
+            throw new GraphQLException(e);
         }
-
-        docService.updateDoctor(existingDoc, docInput);
 
         return existingDoc;
     }

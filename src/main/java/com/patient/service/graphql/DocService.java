@@ -7,6 +7,9 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.NoSuchElementException;
+import java.util.Optional;
+
 @Service
 public class DocService {
 
@@ -41,7 +44,13 @@ public class DocService {
     }
 
     public Doc retrieveDoctorById(Long id){
-        return docRepo.findById(id).orElseGet(null);
+        Doc doc;
+        try {
+            doc = docRepo.findById(id).orElse(null);
+        } catch (NoSuchElementException | NullPointerException e){
+            throw e;
+        }
+        return doc;
     }
 
     // testing purposes
