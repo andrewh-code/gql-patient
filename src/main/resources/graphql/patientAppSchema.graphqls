@@ -1,0 +1,38 @@
+enum Title {
+    MD,
+    PT,
+    DC,
+    MT
+}
+
+type Doc {
+    id: ID!
+    firstName: String!
+    lastName: String!
+    title: Title!
+    specialty: String
+}
+
+type Patient {
+    id: ID!
+    firstName: String!
+    lastName: String!
+    email: String!
+    phone: String!
+    dob: String!
+    docs: [Doc]
+}
+
+type Query {
+    #retrieve all doctors/practitioners at the practice
+    retrieveAllDoctors: [Doc!]
+
+    #retrieve specific doctor/practitioner by their ID
+    retrieveDoctorById(id: ID): Doc
+
+    # retrieve all patients at the practice
+    retrieveAllPatientsInfo: [Patient!]
+
+    # retrieve specific patient's information
+    retrievePatientInfoById(id: ID): Patient
+}
