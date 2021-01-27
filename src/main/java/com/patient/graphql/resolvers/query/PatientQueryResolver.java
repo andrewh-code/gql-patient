@@ -32,9 +32,15 @@ public class PatientQueryResolver implements GraphQLQueryResolver {
         try {
             patient = patientService.retrievePatientInfoById(Id);
         } catch (Exception e){
-            throw new GraphQLException(e);
+            throw new GraphQLException(e.getMessage());
         }
         return patient;
     }
 
+
+    // for testing
+    // how do you inject it while testing?
+    public void setPatientService(PatientService patientService){
+        this.patientService = patientService;
+    }
 }

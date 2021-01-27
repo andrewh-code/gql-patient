@@ -31,7 +31,7 @@ public class PatientService {
     public Patient retrievePatientInfoById(Long Id){
         Patient patient;
         try {
-            patient = patientRepo.findById(Id).orElse(null);
+            patient = patientRepo.findById(Id).get();
         } catch (NoSuchElementException | NullPointerException e){
             throw e;
         }
@@ -70,5 +70,13 @@ public class PatientService {
         docService.saveDoctor(doc);
         savePatient(patient);
         return patient;
+    }
+
+    //for testing
+    public void setPatientRepo(PatientRepo patientRepo){
+        this.patientRepo = patientRepo;
+    }
+    public void setDocService(DocService docService){
+        this.docService = docService;
     }
 }
