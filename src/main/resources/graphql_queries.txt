@@ -24,3 +24,37 @@ mutation{
   title
 }
 }
+
+mutation{
+  updateDoctorInfo(id: 99, input: {
+    firstName: "updated"
+    lastName: "updated",
+    specialty: "occupational"
+    title: PT
+  }) {
+    id
+    firstName
+    lastName
+    specialty
+    title
+  }
+}
+
+
+mutation{
+  createNewPatient(input: {
+    firstName: "new"
+    lastName: "new"
+    email: "new@new.com",
+    phone: "123-456-7890",
+    dob: "2020-01-01"
+  }){
+    id
+    firstName
+    lastName
+    email
+    phone
+    dob
+  }
+}
+

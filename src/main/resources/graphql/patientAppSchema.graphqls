@@ -1,3 +1,5 @@
+scalar Date
+
 enum Title {
     MD,
     PT,
@@ -9,6 +11,14 @@ input DocInput {
     lastName: String
     title: Title
     specialty: String
+}
+
+input PatientInput {
+    firstName: String!
+    lastName: String!
+    email: String!
+    phone: String!
+    dob: Date!
 }
 
 type Doc {
@@ -32,7 +42,12 @@ type Patient {
 type Mutation {
     #Update doctor's personal information
     updateDoctorInfo(id: ID!, input: DocInput!): Doc!
+    #Creat a new doctor using the DocInput type
     createNewDoctor(input: DocInput!): Doc!
+
+    createNewPatient(input: PatientInput!): Patient!
+
+    addDoctorToPatient(patientId: ID!, doctorId: ID!): Patient!
 }
 
 type Query {

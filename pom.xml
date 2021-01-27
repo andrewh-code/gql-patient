@@ -66,6 +66,11 @@
             <artifactId>graphql-spring-boot-starter</artifactId>
             <version>11.0.0</version>
         </dependency>
+        <dependency>
+            <groupId>com.graphql-java</groupId>
+            <artifactId>graphql-java-extended-scalars</artifactId>
+            <version>1.0</version>
+        </dependency>
 
         <!-- to embed Altair tool -->
         <dependency>
