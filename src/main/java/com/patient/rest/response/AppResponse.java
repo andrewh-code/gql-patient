@@ -1,4 +1,4 @@
-package com.patient.zrest.response;
+package com.patient.rest.response;
 
 import lombok.Getter;
 import lombok.Setter;

@@ -16,8 +16,9 @@ public class Appointment {
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
+    @Column(name="id")
     public Long Id;
-    @Column(name="practitioner_id")
+    @Column(name="doc_id")
     private Long docId;
     @Column(name="patient_id")
     private Long patientId;
@@ -25,6 +26,5 @@ public class Appointment {
     private Date scheduledDate;
     @Column(name="attended")
     private Boolean attended;
-
 
 }

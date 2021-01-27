@@ -18,7 +18,7 @@ public class DocService {
     private DocRepo docRepo;
 
     // turn this into saveDoc function
-    public void createNewDoctor(Doc newDoc){
+    public void saveDoctor(Doc newDoc){
         docRepo.save(newDoc);
     }
 

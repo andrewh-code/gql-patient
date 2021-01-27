@@ -28,7 +28,7 @@ public class DocMutationResolver implements GraphQLMutationResolver {
                 .specialty(docInput.getSpecialty())
                 .build();
 
-        docService.createNewDoctor(newDoc);
+        docService.saveDoctor(newDoc);
         return newDoc;
     }
 

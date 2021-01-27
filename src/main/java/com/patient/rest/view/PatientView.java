@@ -1,4 +1,4 @@
-package com.patient.zrest.view;
+package com.patient.rest.view;
 
 import com.patient.domain.model.Patient;
 import lombok.Getter;

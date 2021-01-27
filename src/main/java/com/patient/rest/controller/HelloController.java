@@ -1,6 +1,6 @@
-package com.patient.zrest.controller;
+package com.patient.rest.controller;
 
-import com.patient.zrest.response.AppResponse;
+import com.patient.rest.response.AppResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;

@@ -1,8 +1,8 @@
-package com.patient.zrest.controller;
+package com.patient.rest.controller;
 
 import com.patient.domain.model.Doc;
 import com.patient.repository.DocRepo;
-import com.patient.zrest.response.AppResponse;
+import com.patient.rest.response.AppResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

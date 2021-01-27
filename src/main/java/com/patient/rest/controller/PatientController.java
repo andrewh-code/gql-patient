@@ -1,17 +1,16 @@
-package com.patient.zrest.controller;
+package com.patient.rest.controller;
 
 import com.patient.domain.model.Doc;
 import com.patient.domain.model.Patient;
 import com.patient.repository.PatientRepo;
-import com.patient.zrest.response.AppResponse;
-import com.patient.zrest.view.PatientView;
+import com.patient.rest.response.AppResponse;
+import com.patient.rest.view.PatientView;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashSet;

@@ -35,7 +35,7 @@ public class TestDocService {
                 .andReturn(mockDoc);
         EasyMock.replay(mockRepo);
 
-        service.createNewDoctor(mockDoc);
+        service.saveDoctor(mockDoc);
 
         EasyMock.verify(mockRepo);
     }

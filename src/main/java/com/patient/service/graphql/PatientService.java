@@ -53,9 +53,9 @@ public class PatientService {
         }
     }
 
-    public Patient savePatient(Patient patient) throws GraphQLException {
+    public void savePatient(Patient patient) throws GraphQLException {
         try {
-            return patientRepo.save(patient);
+            patientRepo.save(patient);
         } catch (Exception e) {
             throw new GraphQLException(e);
         }
@@ -67,6 +67,8 @@ public class PatientService {
         Doc doc = docService.retrieveDoctorById(doctorId);
         patient.addDocs(doc);
 
-        return savePatient(patient);
+        docService.saveDoctor(doc);
+        savePatient(patient);
+        return patient;
     }
 }

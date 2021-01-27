@@ -21,8 +21,8 @@ public class DataLoader {
     public void loadData(){
         List<Doc> docs = loadDoctors();
         loadPatients(docs.get(0));
-        loadNewPatient();
-        updateNewPatient(docs.get(1));
+        Patient patient = loadNewPatient();
+        updateNewPatient(patient, docs.get(1));
     }
 
     private List<Doc> loadDoctors(){
@@ -56,30 +56,40 @@ public class DataLoader {
                 .phone("213-456-7890")
                 .dob(new Date())
                 .build();
+        Patient p2 = Patient.patientBuilder()
+                .docs(new HashSet<>())
+                .firstName("patient")
+                .lastName("two")
+                .email("p2@email.com")
+                .phone("321-456-7890")
+                .dob(new Date())
+                .build();
 
         p1.addDocs(doc);
         patientRepo.save(p1);
+        patientRepo.save(p2);
     }
 
-    private void loadNewPatient(){
-        Patient p4 = Patient.patientBuilder()
+    private Patient loadNewPatient(){
+        Patient p3 = Patient.patientBuilder()
                 .firstName("patient")
-                .lastName("four")
-                .email("p4@email.com")
+                .lastName("three")
+                .email("p3@email.com")
                 .phone("213-456-7890")
                 .dob(new Date())
                 .build();
 
-        patientRepo.save(p4);
+        return patientRepo.save(p3);
     }
 
-    private void updateNewPatient(Doc doc){
+    private void updateNewPatient(Patient patient, Doc doc){
 
-        Optional<Patient> optionalP4 = patientRepo.findById(3L);
-        Patient p4 = optionalP4.orElse(null);
-        p4.addDocs(doc);
+        Optional<Patient> optionalP3 = patientRepo.findById(patient.getId());
+        Patient p3 = optionalP3.orElse(null);
+        p3.addDocs(doc);
 
-        patientRepo.save(p4);
+        docRepo.save(doc);
+        patientRepo.save(p3);
     }
 
 

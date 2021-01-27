@@ -9,6 +9,20 @@ query {
   }
 }
 
+query {
+  retrieveAllPatientsInfo{
+    id
+    firstName
+    lastName
+    email
+    phone
+    dob
+    docs{
+      id
+    }
+  }
+}
+
 # mutations
 mutation{
   createNewDoctor(input: {
