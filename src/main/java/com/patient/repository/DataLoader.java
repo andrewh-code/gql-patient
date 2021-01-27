@@ -1,5 +1,6 @@
 package com.patient.repository;
 
+import com.patient.domain.model.Appointment;
 import com.patient.domain.model.Doc;
 import com.patient.domain.model.Patient;
 import com.patient.domain.model.Title;
@@ -7,6 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
 
 @Service
@@ -16,6 +20,10 @@ public class DataLoader {
     private DocRepo docRepo;
     @Autowired
     private PatientRepo patientRepo;
+    @Autowired
+    private AppointmentRepo appointmentRepo;
+    @Autowired
+    private AppointmentResultsRepo appointmentResultsRepo;
 
     @PostConstruct
     public void loadData(){
@@ -23,6 +31,7 @@ public class DataLoader {
         loadPatients(docs.get(0));
         Patient patient = loadNewPatient();
         updateNewPatient(patient, docs.get(1));
+        createAppointment(patient, docs.get(1));
     }
 
     private List<Doc> loadDoctors(){
@@ -90,6 +99,20 @@ public class DataLoader {
 
         docRepo.save(doc);
         patientRepo.save(p3);
+    }
+
+    private void createAppointment(Patient patient, Doc doc) {
+        LocalDate fiveDaysFromNowLocal = LocalDate.now().plus(5, ChronoUnit.DAYS);
+        Date fiveDaysFromNow = Date.from(fiveDaysFromNowLocal.atStartOfDay(ZoneId.systemDefault()).toInstant());
+
+        Appointment appointment = Appointment.appointmentBuilder()
+                .docId(doc.getId())
+                .patientId(patient.getId())
+                .scheduledDate(fiveDaysFromNow)
+                .attended(Boolean.FALSE)
+                .build();
+
+        appointmentRepo.save(appointment);
     }
 
 

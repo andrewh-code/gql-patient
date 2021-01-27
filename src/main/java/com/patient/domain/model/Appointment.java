@@ -15,7 +15,7 @@ import java.util.Date;
 public class Appointment {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column(name="id")
     public Long Id;
     @Column(name="doc_id")
@@ -27,4 +27,13 @@ public class Appointment {
     @Column(name="attended")
     private Boolean attended;
 
+    public Appointment(){}
+
+    public Appointment(Long id, Long docId, Long patientId, Date scheduledDate, Boolean attended) {
+        Id = id;
+        this.docId = docId;
+        this.patientId = patientId;
+        this.scheduledDate = scheduledDate;
+        this.attended = attended;
+    }
 }
