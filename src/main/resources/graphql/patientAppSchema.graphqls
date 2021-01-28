@@ -1,10 +1,18 @@
 scalar Date
+scalar DateTime
 
 enum Title {
     MD,
     PT,
     DC,
     MT
+}
+enum AppointmentStatus {
+    UPCOMING,
+    ATTENDED,
+    DID_NOT_ATTEND,
+    CANCELLED,
+    RESCHEDULED
 }
 input DocInput {
     firstName: String
@@ -39,6 +47,15 @@ type Patient {
     docs: [Doc]
 }
 
+type Appointment {
+    id: ID!
+    docId: ID!
+    patientId: ID!
+    scheduledDate: DateTime!
+    appointmentStatus: AppointmentStatus!
+    notes: String
+}
+
 type Mutation {
     #Update doctor's personal information
     updateDoctorInfo(id: ID!, input: DocInput!): Doc!
@@ -51,16 +68,25 @@ type Mutation {
 }
 
 type Query {
-    #retrieve all doctors/practitioners at the practice
+    #Retrieve all doctors/practitioners at the practice
     retrieveAllDoctors: [Doc!]
 
-    #retrieve specific doctor/practitioner by their ID
+    #Retrieve specific doctor/practitioner by their ID
     retrieveDoctorById(id: ID): Doc
 
-    # retrieve all patients at the practice
+    #Retrieve all patients at the practice
     retrieveAllPatientsInfo: [Patient!]
 
-    # retrieve specific patient's information
+    #Retrieve specific patient's information
     retrievePatientInfoById(id: ID): Patient
+
+    #Retrieve all appointments
+    retrieveAllAppointments: [Appointment!]
+
+    #Retrieve appointmet by its ID
+    retrieveAppointmentById(id: ID): Appointment
+
+    #Retrieve appointments by its status (enum type)
+    retrieveAppointmentByType(appointmentStatus: AppointmentStatus): [Appointment]
 }
 

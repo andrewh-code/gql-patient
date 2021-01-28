@@ -1,19 +1,13 @@
 package com.patient.graphql.resolvers.mutation;
 
-import com.patient.domain.model.Doc;
 import com.patient.domain.model.Patient;
 import com.patient.domain.model.graphInput.PatientInput;
-import com.patient.repository.PatientRepo;
 import com.patient.service.graphql.DocService;
 import com.patient.service.graphql.PatientService;
 import graphql.GraphQLException;
 import graphql.kickstart.tools.GraphQLMutationResolver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import javax.tools.DocumentationTool;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 @Component
 public class PatientMutationResolver implements GraphQLMutationResolver{

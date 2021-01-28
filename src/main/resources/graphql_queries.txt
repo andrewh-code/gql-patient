@@ -72,3 +72,13 @@ mutation{
   }
 }
 
+query {
+  retrieveAllAppointments{
+    id
+    docId
+    patientId
+    scheduledDate
+    appointmentStatus
+    notes
+  }
+}

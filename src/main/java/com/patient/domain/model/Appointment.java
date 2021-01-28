@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.ZonedDateTime;
 import java.util.Date;
 
 // lombok stuff
@@ -19,7 +20,7 @@ public class Appointment {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column(name="appointment_id")
-    public Long appointmentId;
+    public Long id;
 
     // set this as foreign key
     @Column(name="doc_id")
@@ -28,7 +29,7 @@ public class Appointment {
     @Column(name="patient_id")
     private Long patientId;
     @Column(name="scheduled_date")
-    private Date scheduledDate;
+    private ZonedDateTime scheduledDate;
     @Column(name="attended")
     private AppointmentStatus appointmentStatus;
     @Column(name="notes")
@@ -36,10 +37,10 @@ public class Appointment {
 
     public Appointment(){}
 
-    public Appointment(Long appointmentId, Long docId, Long patientId,
-                       Date scheduledDate, AppointmentStatus appointmentStatus,
+    public Appointment(Long id, Long docId, Long patientId,
+                       ZonedDateTime scheduledDate, AppointmentStatus appointmentStatus,
                        String notes) {
-        this.appointmentId = appointmentId;
+        this.id = id;
         this.notes = notes;
         this.docId = docId;
         this.patientId = patientId;

@@ -3,7 +3,6 @@ package com.patient.rest.controller;
 import com.patient.domain.model.Appointment;
 import com.patient.repository.AppointmentRepo;
 import com.patient.rest.response.AppResponse;
-import com.sun.javaws.security.AppPolicy;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.PostConstruct;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
 
@@ -103,13 +104,14 @@ public class DataLoader {
 
 
     private void createAppointment(Patient patient, Doc doc, long daysFromNow) {
-        LocalDate daysFromNowLocal = LocalDate.now().plus(daysFromNow, ChronoUnit.DAYS);
-        Date fiveDaysFromNow = Date.from(daysFromNowLocal.atStartOfDay(ZoneId.systemDefault()).toInstant());
+        ZonedDateTime daysFormNowZoned = ZonedDateTime.now()
+                .plus(daysFromNow, ChronoUnit.DAYS)
+                .plus(4, ChronoUnit.HOURS);
 
         Appointment appointment = Appointment.appointmentBuilder()
                 .docId(doc.getId())
                 .patientId(patient.getId())
-                .scheduledDate(fiveDaysFromNow)
+                .scheduledDate(daysFormNowZoned)
                 .appointmentStatus(AppointmentStatus.UPCOMING)
                 .build();
 
