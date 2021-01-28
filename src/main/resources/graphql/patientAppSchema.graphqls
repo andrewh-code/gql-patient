@@ -14,6 +14,7 @@ enum AppointmentStatus {
     CANCELLED,
     RESCHEDULED
 }
+
 input DocInput {
     firstName: String
     lastName: String
@@ -27,6 +28,15 @@ input PatientInput {
     email: String!
     phone: String!
     dob: Date!
+}
+
+input AppointmentInput {
+    id: ID
+    patientId: ID!
+    docId: ID!
+    appointmentStatus: AppointmentStatus!
+    scheduledDate: DateTime!
+    notes: String
 }
 
 type Doc {
@@ -64,7 +74,11 @@ type Mutation {
 
     createNewPatient(input: PatientInput!): Patient!
 
-    addDoctorToPatient(patientId: ID!, doctorId: ID!): Patient!
+    addDoctorToPatient(patientId: ID!, docId: ID!): Patient!
+
+    createNewAppointment(input: AppointmentInput): Appointment!
+
+    updateAppointment(id: ID!, input: AppointmentInput!): Appointment!
 }
 
 type Query {
@@ -87,6 +101,9 @@ type Query {
     retrieveAppointmentById(id: ID): Appointment
 
     #Retrieve appointments by its status (enum type)
-    retrieveAppointmentByType(appointmentStatus: AppointmentStatus): [Appointment]
+    retrieveAppointmentByStatus(status: AppointmentStatus!): [Appointment]
+
+    #Retrieve appointments by patient id. If appointment status is null, retrieve all appointments
+    retrievePatientsAppointments(patientId: ID!, status: AppointmentStatus): [Appointment]
 }
 

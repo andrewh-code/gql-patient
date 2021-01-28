@@ -45,13 +45,23 @@ public class AppointmentQueryResolver implements GraphQLQueryResolver {
         if (status == null) {
             throw new GraphQLException("appointment status cannot be determined");
         }
-
         try {
             List<Appointment> appointments = appointmentService.retrieveAppointmentsByStatus(status);
             return appointments;
         } catch (Exception e){
             throw new GraphQLException(e.getMessage());
         }
+    }
 
+    public List<Appointment> retrievePatientsAppointments(Long patientId, AppointmentStatus status) {
+        if (patientId == null) {
+            throw new GraphQLException("appointment status cannot be determined");
+        }
+        try {
+            List<Appointment> appointments = appointmentService.retrievePatientsAppointments(patientId, status);
+            return appointments;
+        } catch (Exception e){
+            throw new GraphQLException(e.getMessage());
+        }
     }
 }
