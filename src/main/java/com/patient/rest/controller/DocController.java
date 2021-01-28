@@ -9,10 +9,7 @@ import com.patient.rest.response.AppResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -27,14 +24,34 @@ public class DocController {
     @Autowired
     private AppointmentRepo appointmentRepo;
 
+    /**
+     * retrieve all doctors in the network
+     * @return
+     */
     @GetMapping("/doctors")
-    public ResponseEntity<AppResponse> retrievePractitioner(){
+    public ResponseEntity<AppResponse> retrieveDoc(){
 
         // retrieve from database
         List<Doc> allDocs =  docRepo.findAll();
         return new ResponseEntity<AppResponse>(new AppResponse(allDocs, 200), HttpStatus.OK);
     }
+    @PostMapping("/doctors")
+    public ResponseEntity<AppResponse> createDoc(@RequestBody Doc newDoc){
 
+        // assume valid values
+        try {
+            Doc returnedNewDoc = docRepo.save(newDoc);
+            return new ResponseEntity<AppResponse>(new AppResponse(returnedNewDoc, 200), HttpStatus.OK);
+        } catch (Exception e){
+            return new ResponseEntity<AppResponse>(new AppResponse("Unable to save doctor", 500), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    /**
+     * retrieve specific doctor based off of their ID
+     * @param id
+     * @return
+     */
     @GetMapping("/doctors/{id}")
     public ResponseEntity<AppResponse> retrieveDocById(@PathVariable Long id){
 
@@ -51,6 +68,11 @@ public class DocController {
         }
     }
 
+    /**
+     * retrieve all appointments for a specific doctor
+     * @param id
+     * @return
+     */
     @GetMapping("/doctors/{id}/appointments")
     public ResponseEntity<AppResponse> retrieveDocsAppointments(@PathVariable Long id){
 

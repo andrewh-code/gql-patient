@@ -32,6 +32,10 @@ public class PatientController {
     @Autowired
     private AppointmentRepo appointmentRepo;
 
+    /**
+     * retrieve all patients in the network/database
+     * @return
+     */
     @GetMapping("/patients")
     public ResponseEntity<AppResponse> patients(){
 
@@ -39,6 +43,11 @@ public class PatientController {
         return new ResponseEntity<AppResponse>(new AppResponse(allPatients, 200), HttpStatus.OK);
     }
 
+    /**
+     * retrieve a specific patient based off of their ID
+     * @param patientId
+     * @return
+     */
     @GetMapping("/patients/{patientId}")
     public ResponseEntity<AppResponse> patientId(@PathVariable Long patientId) {
         log.info("hit /patients/id api...");
@@ -55,6 +64,11 @@ public class PatientController {
         return new ResponseEntity<AppResponse>(new AppResponse(patientView, 200), HttpStatus.OK);
     }
 
+    /**
+     * retrieve a specific patient's appointments. Their entire appointment history
+     * @param patientId
+     * @return
+     */
     @GetMapping("/patients/{patientId}/appointments")
     public ResponseEntity<AppResponse> patientsAppointments(@PathVariable Long patientId) {
         log.info("hit /patients/id/appointments api...");

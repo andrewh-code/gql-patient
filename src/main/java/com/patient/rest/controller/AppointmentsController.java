@@ -8,10 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -27,6 +24,11 @@ public class AppointmentsController {
     @Autowired
     private AppointmentRepo appointmentRepo;
 
+    /**
+     * retrieve all appointemtns created. Includes appoitnemtns in the past
+     * shows ALL appointments between all patietns and all doctors
+     * @return
+     */
     @GetMapping("/appointments")
     public ResponseEntity<AppResponse> retrieveAllAppointments() {
         log.info("hit the /appointments api endpoint");
@@ -36,6 +38,11 @@ public class AppointmentsController {
         return new ResponseEntity<AppResponse>(response, HttpStatus.OK);
     }
 
+    /**
+     * retrieve information for a specific appointment
+     * @param appointmentId
+     * @return
+     */
     @GetMapping("/appointments/{appointmentId}")
     public ResponseEntity<AppResponse> retrieveAllAppointments(@PathVariable Long appointmentId) {
         log.info("hit the /appointments api endpoint");
@@ -46,7 +53,13 @@ public class AppointmentsController {
     }
 
 
-    // too lazy to do qp, use path variable
+    /**
+     * Retrieve appointments based off a start and end date
+     * too lazy to do qp, use path variable
+     * @param strStartDate
+     * @param strEndDate
+     * @return
+     */
     @GetMapping("/appointments/{strStartDate}/{strEndDate}")
     public ResponseEntity<AppResponse> retrieveAppointmentsDateRange(@PathVariable String strStartDate,
                                                                      @PathVariable String strEndDate) {
@@ -69,6 +82,20 @@ public class AppointmentsController {
             response.setStatus(400);
             return new ResponseEntity<AppResponse>(response, HttpStatus.BAD_REQUEST);
         }
+    }
 
+    @PostMapping("/appointments")
+
+    public ResponseEntity<AppResponse> createAppointment(@RequestBody Appointment newAppointment){
+
+        try {
+            newAppointment = appointmentRepo.save(newAppointment);
+            return new ResponseEntity<AppResponse>(new AppResponse(newAppointment, 200), HttpStatus.OK);
+        } catch (Exception e){
+            AppResponse response = new AppResponse();
+            response.setResult(e.getMessage());
+            response.setStatus(400);
+            return new ResponseEntity<AppResponse>(response, HttpStatus.BAD_REQUEST);
+        }
     }
 }
