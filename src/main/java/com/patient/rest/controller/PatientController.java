@@ -11,9 +11,9 @@ import com.patient.rest.view.PatientView;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashSet;
@@ -37,10 +37,11 @@ public class PatientController {
      * @return
      */
     @GetMapping("/patients")
-    public ResponseEntity<AppResponse> patients(){
+    @ResponseBody
+    public AppResponse patients(){
 
         List<Patient> allPatients = patientRepo.findAll();
-        return new ResponseEntity<AppResponse>(new AppResponse(allPatients, 200), HttpStatus.OK);
+        return new AppResponse(allPatients, HttpStatus.OK);
     }
 
     /**
@@ -49,7 +50,8 @@ public class PatientController {
      * @return
      */
     @GetMapping("/patients/{patientId}")
-    public ResponseEntity<AppResponse> patientId(@PathVariable Long patientId) {
+    @ResponseBody
+    public AppResponse patientId(@PathVariable Long patientId) {
         log.info("hit /patients/id api...");
         Optional<Patient> Patient = patientRepo.findById(patientId);
         Patient retrievedPatient = Patient.orElse(null);
@@ -61,7 +63,7 @@ public class PatientController {
 
         PatientView patientView = new PatientView(retrievedPatient);
         patientView.setDoctorIds(docIds);
-        return new ResponseEntity<AppResponse>(new AppResponse(patientView, 200), HttpStatus.OK);
+        return new AppResponse(patientView, HttpStatus.OK);
     }
 
     /**
@@ -70,11 +72,12 @@ public class PatientController {
      * @return
      */
     @GetMapping("/patients/{patientId}/appointments")
-    public ResponseEntity<AppResponse> patientsAppointments(@PathVariable Long patientId) {
+    @ResponseBody
+    public AppResponse patientsAppointments(@PathVariable Long patientId) {
         log.info("hit /patients/id/appointments api...");
 
         if (patientId == null){
-            return new ResponseEntity<AppResponse>(new AppErrorResponse("patientId is null or blank"), HttpStatus.BAD_REQUEST);
+            return new AppResponse("patientId is null or blank", HttpStatus.BAD_REQUEST);
         }
         try {
             if (!patientRepo.findById(patientId).isPresent()){
@@ -82,10 +85,10 @@ public class PatientController {
             }
             List<Appointment> appointments = appointmentRepo.findAllByPatientId(patientId);
 
-            return new ResponseEntity<AppResponse>(new AppResponse(appointments, 200), HttpStatus.OK);
+            return new AppResponse(appointments, HttpStatus.OK);
 
         } catch (Exception e){
-            return new ResponseEntity<AppResponse>(new AppErrorResponse(e.getMessage()), HttpStatus.BAD_REQUEST);
+            return new AppResponse(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
 

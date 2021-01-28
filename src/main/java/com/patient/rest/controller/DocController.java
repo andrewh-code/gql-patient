@@ -29,21 +29,23 @@ public class DocController {
      * @return
      */
     @GetMapping("/doctors")
-    public ResponseEntity<AppResponse> retrieveDoc(){
+    @ResponseBody
+    public AppResponse retrieveDoc(){
 
         // retrieve from database
         List<Doc> allDocs =  docRepo.findAll();
-        return new ResponseEntity<AppResponse>(new AppResponse(allDocs, 200), HttpStatus.OK);
+        return new AppResponse(allDocs,  HttpStatus.OK);
     }
     @PostMapping("/doctors")
-    public ResponseEntity<AppResponse> createDoc(@RequestBody Doc newDoc){
+    @ResponseBody
+    public AppResponse createDoc(@RequestBody Doc newDoc){
 
         // assume valid values
         try {
             Doc returnedNewDoc = docRepo.save(newDoc);
-            return new ResponseEntity<AppResponse>(new AppResponse(returnedNewDoc, 200), HttpStatus.OK);
+            return new AppResponse(returnedNewDoc, HttpStatus.OK);
         } catch (Exception e){
-            return new ResponseEntity<AppResponse>(new AppResponse("Unable to save doctor", 500), HttpStatus.INTERNAL_SERVER_ERROR);
+            return new AppResponse("Unable to save doctor", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -53,18 +55,19 @@ public class DocController {
      * @return
      */
     @GetMapping("/doctors/{id}")
-    public ResponseEntity<AppResponse> retrieveDocById(@PathVariable Long id){
+    @ResponseBody
+    public AppResponse retrieveDocById(@PathVariable Long id){
 
         Doc doc;
         try {
             Optional<Doc> optDoc = docRepo.findById(id);
             if (optDoc.isPresent()){
-                return new ResponseEntity<AppResponse>(new AppResponse(optDoc.get(), 200), HttpStatus.OK);
+                return new AppResponse(optDoc.get(),  HttpStatus.OK);
             } else {
-                return new ResponseEntity<AppResponse>(new AppResponse("doctor with id " + id.toString() + " not found", 404), HttpStatus.NOT_FOUND);
+                return new AppResponse("doctor with id " + id.toString() + " not found", HttpStatus.NOT_FOUND);
             }
         } catch (Exception e){
-            return new ResponseEntity<AppResponse>(new AppErrorResponse(e.getMessage()), HttpStatus.BAD_REQUEST);
+            return new AppResponse(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -74,18 +77,19 @@ public class DocController {
      * @return
      */
     @GetMapping("/doctors/{id}/appointments")
-    public ResponseEntity<AppResponse> retrieveDocsAppointments(@PathVariable Long id){
+    @ResponseBody
+    public AppResponse retrieveDocsAppointments(@PathVariable Long id){
 
         Doc doc;
         try {
             Optional<Doc> optDoc = docRepo.findById(id);
             if (!optDoc.isPresent()){
-                return new ResponseEntity<AppResponse>(new AppResponse("doctor with id " + id.toString() + " not found", 404), HttpStatus.NOT_FOUND);
+                return new AppResponse("doctor with id " + id.toString() + " not found", HttpStatus.NOT_FOUND);
             }
             List<Appointment> docAppointments = appointmentRepo.findAllByDocId(id);
-            return new ResponseEntity<AppResponse>(new AppResponse(docAppointments, 200), HttpStatus.OK);
+            return new AppResponse(docAppointments, HttpStatus.OK);
         } catch (Exception e){
-            return new ResponseEntity<AppResponse>(new AppErrorResponse(e.getMessage()), HttpStatus.BAD_REQUEST);
+            return new AppResponse(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
 }

@@ -4,6 +4,7 @@ import com.patient.rest.response.AppResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
@@ -13,12 +14,11 @@ import java.util.Map;
 public class HelloController {
 
     @RequestMapping("/")
-    public ResponseEntity<AppResponse> hello(){
+    @ResponseBody
+    public AppResponse hello(){
 
         Map<String, String> map = new HashMap<String, String>();
         String out = "hello world";
-        AppResponse response = new AppResponse(out, HttpStatus.OK.value());
-
-        return new ResponseEntity<AppResponse>(response, HttpStatus.OK);
+        return new AppResponse(out, HttpStatus.OK);
     }
 }

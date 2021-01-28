@@ -30,12 +30,12 @@ public class AppointmentsController {
      * @return
      */
     @GetMapping("/appointments")
-    public ResponseEntity<AppResponse> retrieveAllAppointments() {
+    @ResponseBody
+    public AppResponse retrieveAllAppointments() {
         log.info("hit the /appointments api endpoint");
         List<Appointment> appointments = appointmentRepo.findAll();
 
-        AppResponse response = new AppResponse(appointments, 200);
-        return new ResponseEntity<AppResponse>(response, HttpStatus.OK);
+        return new AppResponse(appointments, HttpStatus.OK);
     }
 
     /**
@@ -44,12 +44,13 @@ public class AppointmentsController {
      * @return
      */
     @GetMapping("/appointments/{appointmentId}")
-    public ResponseEntity<AppResponse> retrieveAllAppointments(@PathVariable Long appointmentId) {
+    @ResponseBody
+    public AppResponse retrieveAllAppointments(@PathVariable Long appointmentId) {
         log.info("hit the /appointments api endpoint");
         Appointment appointment = appointmentRepo.findById(appointmentId).get();
 
-        AppResponse response = new AppResponse(appointment, 200);
-        return new ResponseEntity<AppResponse>(response, HttpStatus.OK);
+        return new AppResponse(appointment, HttpStatus.OK);
+
     }
 
 
@@ -61,7 +62,8 @@ public class AppointmentsController {
      * @return
      */
     @GetMapping("/appointments/{strStartDate}/{strEndDate}")
-    public ResponseEntity<AppResponse> retrieveAppointmentsDateRange(@PathVariable String strStartDate,
+    @ResponseBody
+    public AppResponse retrieveAppointmentsDateRange(@PathVariable String strStartDate,
                                                                      @PathVariable String strEndDate) {
 
         AppResponse response = new AppResponse();
@@ -76,26 +78,21 @@ public class AppointmentsController {
 
             List<Appointment> filteredAppointments = appointmentRepo.queryBetweenDateRange(startDate, endDate);
 
-            return new ResponseEntity<AppResponse>(new AppResponse(filteredAppointments, 200), HttpStatus.OK);
+            return new AppResponse(filteredAppointments, HttpStatus.OK);
         } catch (Exception e){
-            response.setResult(e.getMessage());
-            response.setStatus(400);
-            return new ResponseEntity<AppResponse>(response, HttpStatus.BAD_REQUEST);
+            return new AppResponse(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
 
     @PostMapping("/appointments")
-
-    public ResponseEntity<AppResponse> createAppointment(@RequestBody Appointment newAppointment){
+    @ResponseBody
+    public AppResponse createAppointment(@RequestBody Appointment newAppointment){
 
         try {
             newAppointment = appointmentRepo.save(newAppointment);
-            return new ResponseEntity<AppResponse>(new AppResponse(newAppointment, 200), HttpStatus.OK);
+            return new AppResponse(newAppointment, HttpStatus.OK);
         } catch (Exception e){
-            AppResponse response = new AppResponse();
-            response.setResult(e.getMessage());
-            response.setStatus(400);
-            return new ResponseEntity<AppResponse>(response, HttpStatus.BAD_REQUEST);
+            return new AppResponse(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }
