@@ -14,4 +14,5 @@ public class AppResponse {
         this.result = result;
         this.status = status;
     }
+    public AppResponse(){}
 }

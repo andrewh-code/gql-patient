@@ -1,9 +1,6 @@
 package com.patient.repository;
 
-import com.patient.domain.model.Appointment;
-import com.patient.domain.model.Doc;
-import com.patient.domain.model.Patient;
-import com.patient.domain.model.Title;
+import com.patient.domain.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,8 +19,6 @@ public class DataLoader {
     private PatientRepo patientRepo;
     @Autowired
     private AppointmentRepo appointmentRepo;
-    @Autowired
-    private AppointmentResultsRepo appointmentResultsRepo;
 
     @PostConstruct
     public void loadData(){
@@ -31,7 +26,12 @@ public class DataLoader {
         loadPatients(docs.get(0));
         Patient patient = loadNewPatient();
         updateNewPatient(patient, docs.get(1));
-        createAppointment(patient, docs.get(1));
+        createAppointment(patient, docs.get(1), 5);
+        createAppointment(patient, docs.get(2), 5);
+        createAppointment(patient, docs.get(1), 10);
+        createAppointment(patient, docs.get(2), 20);
+        createAppointment(patient, docs.get(1), -10);
+        updateAppointment(1, AppointmentStatus.ATTENDED);
     }
 
     private List<Doc> loadDoctors(){
@@ -101,24 +101,27 @@ public class DataLoader {
         patientRepo.save(p3);
     }
 
-    private void createAppointment(Patient patient, Doc doc) {
-        LocalDate fiveDaysFromNowLocal = LocalDate.now().plus(5, ChronoUnit.DAYS);
-        Date fiveDaysFromNow = Date.from(fiveDaysFromNowLocal.atStartOfDay(ZoneId.systemDefault()).toInstant());
+
+    private void createAppointment(Patient patient, Doc doc, long daysFromNow) {
+        LocalDate daysFromNowLocal = LocalDate.now().plus(daysFromNow, ChronoUnit.DAYS);
+        Date fiveDaysFromNow = Date.from(daysFromNowLocal.atStartOfDay(ZoneId.systemDefault()).toInstant());
 
         Appointment appointment = Appointment.appointmentBuilder()
                 .docId(doc.getId())
                 .patientId(patient.getId())
                 .scheduledDate(fiveDaysFromNow)
-                .attended(Boolean.FALSE)
+                .appointmentStatus(AppointmentStatus.UPCOMING)
                 .build();
 
         appointmentRepo.save(appointment);
     }
 
-
-
-
-
-
+    private void updateAppointment(long appointmentId, AppointmentStatus status) {
+        // retrieve appointment, update it, update appointment results
+        Appointment appointment = appointmentRepo.findById(appointmentId).get();
+        String notes = "patient is fine";
+        appointment.setNotes(notes);
+        appointmentRepo.save(appointment);
+    }
 
 }

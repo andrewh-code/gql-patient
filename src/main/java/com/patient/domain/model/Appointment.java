@@ -7,33 +7,43 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.util.Date;
 
+// lombok stuff
 @Builder(builderMethodName = "appointmentBuilder")
 @Getter
 @Setter
-@Entity
+// jpa stuff
 @Table(name="appointment")
+@Entity
 public class Appointment {
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    @Column(name="id")
-    public Long Id;
+    @Column(name="appointment_id")
+    public Long appointmentId;
+
+    // set this as foreign key
     @Column(name="doc_id")
     private Long docId;
+    // set this as foreign key
     @Column(name="patient_id")
     private Long patientId;
     @Column(name="scheduled_date")
     private Date scheduledDate;
     @Column(name="attended")
-    private Boolean attended;
+    private AppointmentStatus appointmentStatus;
+    @Column(name="notes")
+    private String notes;
 
     public Appointment(){}
 
-    public Appointment(Long id, Long docId, Long patientId, Date scheduledDate, Boolean attended) {
-        Id = id;
+    public Appointment(Long appointmentId, Long docId, Long patientId,
+                       Date scheduledDate, AppointmentStatus appointmentStatus,
+                       String notes) {
+        this.appointmentId = appointmentId;
+        this.notes = notes;
         this.docId = docId;
         this.patientId = patientId;
         this.scheduledDate = scheduledDate;
-        this.attended = attended;
+        this.appointmentStatus = appointmentStatus;
     }
 }
