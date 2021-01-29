@@ -25,12 +25,12 @@ public class TestPatientQueryResolver {
     @Test
     public void test_retrieveAllPatientsInfo_success() throws Exception {
 
-        Patient p1 = Patient.patientBuilder()
+        Patient p1 = Patient.builder()
                 .id(1L)
                 .firstName("1")
                 .lastName("lastname")
                 .build();
-        Patient p2 = Patient.patientBuilder()
+        Patient p2 = Patient.builder()
                 .id(1L)
                 .firstName("1")
                 .lastName("lastname")
@@ -80,7 +80,7 @@ public class TestPatientQueryResolver {
 
     @Test
     public void test_retrievePatientInfoById_success() throws Exception {
-        Patient p1 = Patient.patientBuilder()
+        Patient p1 = Patient.builder()
                 .id(1L)
                 .firstName("1")
                 .lastName("lastname")
@@ -100,7 +100,7 @@ public class TestPatientQueryResolver {
 
     @Test
     public void test_retrievePatientInfoById_fail_throws_patient_retrieval() throws Exception {
-        Patient p1 = Patient.patientBuilder()
+        Patient p1 = Patient.builder()
                 .id(1L)
                 .firstName("1")
                 .lastName("lastname")

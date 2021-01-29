@@ -1,8 +1,10 @@
 package com.patient.rest.controller;
 
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.patient.domain.model.Appointment;
 import com.patient.domain.model.Doc;
 import com.patient.domain.model.Patient;
+import com.patient.exceptions.PatientValidationException;
 import com.patient.repository.AppointmentRepo;
 import com.patient.repository.PatientRepo;
 import com.patient.rest.response.AppErrorResponse;
@@ -11,10 +13,7 @@ import com.patient.rest.view.PatientView;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashSet;
 import java.util.List;
@@ -89,6 +88,20 @@ public class PatientController {
 
         } catch (Exception e){
             return new AppResponse(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PostMapping("/patients")
+    @ResponseBody
+    @ExceptionHandler(PatientValidationException.class)
+    public AppResponse createNewPatient(@RequestBody Patient newPatient){
+
+        // assume valid values?
+        try {
+            newPatient = patientRepo.save(newPatient);
+            return new AppResponse(newPatient, HttpStatus.OK);
+        } catch (Exception e){
+            return new AppResponse("unable to create new patient", HttpStatus.BAD_REQUEST);
         }
     }
 

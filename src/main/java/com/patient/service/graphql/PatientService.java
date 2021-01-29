@@ -39,14 +39,16 @@ public class PatientService {
     }
 
     public Patient savePatient(PatientInput patientInput) throws GraphQLException{
-        Patient newPatient = Patient.patientBuilder()
-                .firstName(patientInput.getFirstName())
-                .lastName(patientInput.getLastName())
-                .email(patientInput.getEmail())
-                .phone(patientInput.getPhone())
-                .dob(patientInput.getDob())
-                .build();
+
         try {
+            Patient newPatient = Patient.builder()
+                    .firstName(patientInput.getFirstName())
+                    .lastName(patientInput.getLastName())
+                    .email(patientInput.getEmail())
+                    .phone(patientInput.getPhone())
+                    .dob(patientInput.getDob())
+                    .healthCard(patientInput.getHealthCard())
+                    .build();
             return patientRepo.save(newPatient);
         } catch (Exception e) {
             throw new GraphQLException(e);

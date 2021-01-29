@@ -1,6 +1,7 @@
 package com.patient.repository;
 
 import com.patient.domain.model.*;
+import com.patient.exceptions.PatientValidationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +23,7 @@ public class DataLoader {
     private AppointmentRepo appointmentRepo;
 
     @PostConstruct
-    public void loadData(){
+    public void loadData() throws PatientValidationException{
         List<Doc> docs = loadDoctors();
         loadPatients(docs.get(0));
         Patient patient = loadNewPatient();
@@ -57,22 +58,24 @@ public class DataLoader {
         return Arrays.asList(pr1, pr2, pr3);
     }
 
-    private void loadPatients(Doc doc){
-        Patient p1 = Patient.patientBuilder()
+    private void loadPatients(Doc doc) throws PatientValidationException  {
+        Patient p1 = Patient.builder()
                 .docs(new HashSet<>())
                 .firstName("patient")
                 .lastName("one")
                 .email("p1@email.com")
                 .phone("213-456-7890")
                 .dob(new Date())
+                .healthCard("healthcard")
                 .build();
-        Patient p2 = Patient.patientBuilder()
+        Patient p2 = Patient.builder()
                 .docs(new HashSet<>())
                 .firstName("patient")
                 .lastName("two")
                 .email("p2@email.com")
                 .phone("321-456-7890")
                 .dob(new Date())
+                .healthCard("healthcard")
                 .build();
 
         p1.addDocs(doc);
@@ -80,13 +83,14 @@ public class DataLoader {
         patientRepo.save(p2);
     }
 
-    private Patient loadNewPatient(){
-        Patient p3 = Patient.patientBuilder()
+    private Patient loadNewPatient() throws PatientValidationException{
+        Patient p3 = Patient.builder()
                 .firstName("patient")
                 .lastName("three")
                 .email("p3@email.com")
                 .phone("213-456-7890")
                 .dob(new Date())
+                .healthCard("healthcard")
                 .build();
 
         return patientRepo.save(p3);

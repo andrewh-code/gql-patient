@@ -33,14 +33,14 @@ public class TestPatientService {
 
     @Test
     public void test_retrieveAllPatientsInfo_success() throws Exception {
-        Patient patient1 = Patient.patientBuilder()
+        Patient patient1 = Patient.builder()
                 .firstName("1")
                 .lastName("patient")
                 .email("1@patient.ca")
                 .dob(new Date())
                 .phone("123-456-7890")
                 .build();
-        Patient patient2 = Patient.patientBuilder()
+        Patient patient2 = Patient.builder()
                 .firstName("2")
                 .lastName("patient")
                 .email("2@patient.ca")
@@ -64,7 +64,7 @@ public class TestPatientService {
 
     @Test
     public void test_savePatient_success() throws Exception {
-        Patient newPatient = Patient.patientBuilder()
+        Patient newPatient = Patient.builder()
                 .firstName("test")
                 .lastName("patient")
                 .email("test@patient.ca")

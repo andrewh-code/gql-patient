@@ -2,6 +2,8 @@ package com.patient.domain.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.patient.exceptions.PatientValidationException;
+import io.micrometer.core.instrument.util.StringUtils;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,7 +14,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-@Builder(builderMethodName = "patientBuilder")
+//@Builder(builderMethodName = "patientBuilder")
 @Entity
 @Table(name="patient")
 @JsonIgnoreProperties("docs")
@@ -35,8 +37,12 @@ public class Patient {
     private String phone;
     @Column(name="dob")
     private Date dob;
+    // don't know exact validation for health card so just validate it's not blank and no numbers
+    @Column(name="healthcard")
+    private String healthCard;
 
-    public Patient(Long id, Set<Doc> docs, String firstName, String lastName, String email, String phone, Date dob) {
+    @Builder
+    public Patient(Long id, Set<Doc> docs, String firstName, String lastName, String email, String phone, Date dob, String healthCard) throws PatientValidationException {
         this.id = id;
         this.docs = docs;
         this.firstName = firstName;
@@ -44,6 +50,8 @@ public class Patient {
         this.email = email;
         this.phone = phone;
         this.dob = dob;
+        this.healthCard = healthCard;
+        validateHealthCard();
     }
 
     public Patient(){}
@@ -107,5 +115,20 @@ public class Patient {
 
     public void setDob(Date dob) {
         this.dob = dob;
+    }
+
+    public String getHealthCard() {
+        return healthCard;
+    }
+
+    public void setHealthCard(String healthCard) throws PatientValidationException {
+        this.healthCard = healthCard;
+        validateHealthCard();
+    }
+
+    private void validateHealthCard() throws PatientValidationException {
+        if (StringUtils.isBlank(this.healthCard) || this.healthCard.matches(".*\\d.*")){
+            throw new PatientValidationException("Patient has invalid health card number");
+        }
     }
 }

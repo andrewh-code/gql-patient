@@ -6,4 +6,5 @@ input PatientInput {
     email: String!
     phone: String!
     dob: Date!
+    healthCard: String!
 }
