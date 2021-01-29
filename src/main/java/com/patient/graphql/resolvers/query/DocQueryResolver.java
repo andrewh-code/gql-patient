@@ -3,6 +3,7 @@ package com.patient.graphql.resolvers.query;
 import com.patient.domain.model.Doc;
 import com.patient.repository.DocRepo;
 import com.patient.service.graphql.DocService;
+import graphql.GraphQL;
 import graphql.GraphQLException;
 import graphql.kickstart.tools.GraphQLQueryResolver;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,12 +15,15 @@ import java.util.Optional;
 @Component
 public class DocQueryResolver implements GraphQLQueryResolver {
 
-    // put this in its own service
     @Autowired
     private DocService docService;
 
-    public List<Doc> retrieveAllDoctors(){
-        return docService.retrieveAllDoctors();
+    public List<Doc> retrieveAllDoctors() throws GraphQLException{
+        try {
+            return docService.retrieveAllDoctors();
+        } catch (Exception e){
+            throw new GraphQLException(e.getMessage());
+        }
     }
 
     public Doc retrieveDoctorById(Long id) throws GraphQLException{
@@ -35,5 +39,11 @@ public class DocQueryResolver implements GraphQLQueryResolver {
         }
 
         return existingDoc;
+    }
+
+    // for testing purposes
+    // cannot mock servcice for testing?
+    public void setDocService(DocService docService){
+        this.docService = docService;
     }
 }

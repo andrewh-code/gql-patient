@@ -17,10 +17,13 @@ public class PatientQueryResolver implements GraphQLQueryResolver {
     @Autowired
     private PatientService patientService;
 
-    public List<Patient> retrieveAllPatientsInfo() {
-        List<Patient> patients = patientService.retrieveAllPatientsInfo();
-
-        return patients;
+    public List<Patient> retrieveAllPatientsInfo() throws GraphQLException{
+        try {
+            List<Patient> patients = patientService.retrieveAllPatientsInfo();
+            return patients;
+        } catch (Exception e){
+            throw new GraphQLException(e.getMessage());
+        }
     }
 
     public Patient retrievePatientInfoById(Long Id) throws GraphQLException{

@@ -2,10 +2,12 @@ package com.patient.graphql.resolvers.query;
 
 import com.patient.domain.model.Patient;
 import com.patient.service.graphql.PatientService;
+import graphql.Assert;
 import graphql.GraphQLException;
 import org.easymock.EasyMock;
 import org.easymock.EasyMockExtension;
 import org.easymock.Mock;
+import org.hibernate.graph.Graph;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -45,6 +47,22 @@ public class TestPatientQueryResolver {
         List<Patient> output = resolver.retrieveAllPatientsInfo();
 
         EasyMock.verify(patientService);
+    }
+
+    @Test
+    public void test_retrieveAllPatientsInfo_fail_throws() throws Exception {
+        PatientQueryResolver resolver = new PatientQueryResolver();
+        resolver.setPatientService(patientService);
+
+        EasyMock.expect(patientService.retrieveAllPatientsInfo()).andThrow(new Exception("error"));
+        EasyMock.replay(patientService);
+
+        try {
+            resolver.retrieveAllPatientsInfo();
+            Assertions.fail("expected to throw");
+        } catch (GraphQLException e){
+            Assertions.assertEquals("error", e.getMessage());
+        }
     }
 
     @Test

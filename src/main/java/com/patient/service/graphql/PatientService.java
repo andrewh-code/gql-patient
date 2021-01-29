@@ -23,7 +23,7 @@ public class PatientService {
     private DocService docService;
 
 
-    public List<Patient> retrieveAllPatientsInfo(){
+    public List<Patient> retrieveAllPatientsInfo() throws Exception{
         List<Patient> patients = patientRepo.findAll();
         return patients;
     }
