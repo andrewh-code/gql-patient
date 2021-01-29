@@ -1,83 +1,20 @@
-scalar Date
-scalar DateTime
-
-enum Title {
-    MD,
-    PT,
-    DC,
-    MT
-}
-enum AppointmentStatus {
-    UPCOMING,
-    ATTENDED,
-    DID_NOT_ATTEND,
-    CANCELLED,
-    RESCHEDULED
-}
-
-input DocInput {
-    firstName: String
-    lastName: String
-    title: Title
-    specialty: String
-}
-
-input PatientInput {
-    firstName: String!
-    lastName: String!
-    email: String!
-    phone: String!
-    dob: Date!
-}
-
-input AppointmentInput {
-    id: ID
-    patientId: ID!
-    docId: ID!
-    appointmentStatus: AppointmentStatus!
-    scheduledDate: DateTime!
-    notes: String
-}
-
-type Doc {
-    id: ID!
-    firstName: String!
-    lastName: String!
-    title: Title!
-    specialty: String!
-}
-
-type Patient {
-    id: ID!
-    firstName: String!
-    lastName: String!
-    email: String!
-    phone: String!
-    dob: String!
-    docs: [Doc]
-}
-
-type Appointment {
-    id: ID!
-    docId: ID!
-    patientId: ID!
-    scheduledDate: DateTime!
-    appointmentStatus: AppointmentStatus!
-    notes: String
-}
-
 type Mutation {
     #Update doctor's personal information
     updateDoctorInfo(id: ID!, input: DocInput!): Doc!
+
     #Creat a new doctor using the DocInput type
     createNewDoctor(input: DocInput!): Doc!
 
+    #Create a brand new patient for the practice
     createNewPatient(input: PatientInput!): Patient!
 
+    #Assign a new doc to the patient
     addDoctorToPatient(patientId: ID!, docId: ID!): Patient!
 
+    #Schedule a new appointment for a patient and a doctor
     createNewAppointment(input: AppointmentInput): Appointment!
 
+    #Update an appointment (ie. reschedule, cancel, update based on doctor's prognosis, etc)
     updateAppointment(id: ID!, input: AppointmentInput!): Appointment!
 }
 

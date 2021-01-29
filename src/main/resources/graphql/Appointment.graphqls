@@ -1,0 +1,8 @@
+type Appointment {
+    id: ID!
+    docId: ID!
+    patientId: ID!
+    scheduledDate: DateTime!
+    appointmentStatus: AppointmentStatus!
+    notes: String
+}

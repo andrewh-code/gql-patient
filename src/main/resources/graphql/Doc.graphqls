@@ -1,0 +1,7 @@
+type Doc {
+    id: ID!
+    firstName: String!
+    lastName: String!
+    title: Title!
+    specialty: String!
+}

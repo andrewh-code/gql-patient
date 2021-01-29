@@ -1,0 +1,6 @@
+input DocInput {
+    firstName: String
+    lastName: String
+    title: Title
+    specialty: String
+}

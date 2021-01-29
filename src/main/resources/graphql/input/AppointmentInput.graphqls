@@ -1,0 +1,10 @@
+scalar DateTime
+
+input AppointmentInput {
+    id: ID
+    patientId: ID!
+    docId: ID!
+    appointmentStatus: AppointmentStatus!
+    scheduledDate: DateTime!
+    notes: String
+}

@@ -1,0 +1,9 @@
+scalar Date
+
+input PatientInput {
+    firstName: String!
+    lastName: String!
+    email: String!
+    phone: String!
+    dob: Date!
+}
