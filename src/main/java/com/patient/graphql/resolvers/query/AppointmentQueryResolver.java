@@ -2,6 +2,7 @@ package com.patient.graphql.resolvers.query;
 
 import com.patient.domain.model.Appointment;
 import com.patient.domain.model.AppointmentStatus;
+import com.patient.service.AppointmentService;
 import com.patient.service.graphql.AppointmentServiceImpl;
 import graphql.GraphQLException;
 import graphql.kickstart.tools.GraphQLQueryResolver;
@@ -14,7 +15,7 @@ import java.util.List;
 public class AppointmentQueryResolver implements GraphQLQueryResolver {
 
     @Autowired
-    private AppointmentServiceImpl appointmentServiceImpl;
+    private AppointmentService appointmentService;
 
     public List<Appointment> retrieveAllAppointments(){
 

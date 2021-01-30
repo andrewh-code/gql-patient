@@ -1,6 +1,7 @@
 package com.patient.graphql.resolvers.query;
 
 import com.patient.domain.model.Doc;
+import com.patient.service.DocService;
 import com.patient.service.graphql.DocServiceImpl;
 import graphql.GraphQLException;
 import graphql.kickstart.tools.GraphQLQueryResolver;
@@ -13,7 +14,7 @@ import java.util.List;
 public class DocQueryResolver implements GraphQLQueryResolver {
 
     @Autowired
-    private DocServiceImpl docService;
+    private DocService docService;
 
     public List<Doc> retrieveAllDoctors() throws GraphQLException{
         try {

@@ -2,6 +2,8 @@ package com.patient.graphql.resolvers.mutation;
 
 import com.patient.domain.model.Patient;
 import com.patient.domain.model.graphInput.PatientInput;
+import com.patient.service.DocService;
+import com.patient.service.PatientService;
 import com.patient.service.graphql.DocServiceImpl;
 import com.patient.service.graphql.PatientServiceImpl;
 import graphql.GraphQLException;
@@ -13,14 +15,14 @@ import org.springframework.stereotype.Component;
 public class PatientMutationResolver implements GraphQLMutationResolver{
 
     @Autowired
-    private PatientServiceImpl patientService;
+    private PatientService patientService;
 
     @Autowired
-    private DocServiceImpl docService;
+    private DocService docService;
 
     private static final String DOB_FORMAT = "mm-dd-YYYY";
 
-    public Patient createNewPatient(PatientInput patientInput) {
+    public Patient createNewPatient(PatientInput patientInput) throws GraphQLException{
         Patient patient = patientService.savePatient(patientInput);
         return patient;
     }

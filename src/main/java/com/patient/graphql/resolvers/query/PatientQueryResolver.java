@@ -1,6 +1,7 @@
 package com.patient.graphql.resolvers.query;
 
 import com.patient.domain.model.Patient;
+import com.patient.service.PatientService;
 import com.patient.service.graphql.PatientServiceImpl;
 import graphql.GraphQLException;
 import graphql.kickstart.tools.GraphQLQueryResolver;
@@ -13,7 +14,7 @@ import java.util.List;
 public class PatientQueryResolver implements GraphQLQueryResolver {
 
     @Autowired
-    private PatientServiceImpl patientService;
+    private PatientService patientService;
 
     public List<Patient> retrieveAllPatientsInfo() throws GraphQLException{
         try {
