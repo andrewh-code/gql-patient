@@ -1,7 +1,7 @@
 package com.patient.graphql.resolvers.query;
 
 import com.patient.domain.model.Doc;
-import com.patient.service.graphql.DocService;
+import com.patient.service.graphql.DocServiceImpl;
 import graphql.GraphQLException;
 import org.easymock.EasyMock;
 import org.easymock.EasyMockExtension;
@@ -17,7 +17,7 @@ import java.util.List;
 public class TestDocQueryResolver {
 
     @Mock
-    private DocService docService;
+    private DocServiceImpl docService;
 
 
     @Test

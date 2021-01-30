@@ -1,13 +1,11 @@
 package com.patient.graphql.resolvers.query;
 
 import com.patient.domain.model.Patient;
-import com.patient.service.graphql.PatientService;
-import graphql.Assert;
+import com.patient.service.graphql.PatientServiceImpl;
 import graphql.GraphQLException;
 import org.easymock.EasyMock;
 import org.easymock.EasyMockExtension;
 import org.easymock.Mock;
-import org.hibernate.graph.Graph;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -20,7 +18,7 @@ import java.util.NoSuchElementException;
 public class TestPatientQueryResolver {
 
     @Mock
-    private PatientService patientService;
+    private PatientServiceImpl patientService;
 
     @Test
     public void test_retrieveAllPatientsInfo_success() throws Exception {

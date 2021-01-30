@@ -3,6 +3,7 @@ package com.patient.service.graphql;
 import com.patient.domain.model.Doc;
 import com.patient.domain.model.graphInput.DocInput;
 import com.patient.repository.DocRepo;
+import com.patient.service.DocService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,7 +13,7 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
-public class DocService {
+public class DocServiceImpl implements DocService {
 
     @Autowired
     private DocRepo docRepo;

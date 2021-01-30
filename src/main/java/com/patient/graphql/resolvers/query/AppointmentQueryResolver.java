@@ -2,7 +2,7 @@ package com.patient.graphql.resolvers.query;
 
 import com.patient.domain.model.Appointment;
 import com.patient.domain.model.AppointmentStatus;
-import com.patient.service.graphql.AppointmentService;
+import com.patient.service.graphql.AppointmentServiceImpl;
 import graphql.GraphQLException;
 import graphql.kickstart.tools.GraphQLQueryResolver;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,12 +14,12 @@ import java.util.List;
 public class AppointmentQueryResolver implements GraphQLQueryResolver {
 
     @Autowired
-    private AppointmentService appointmentService;
+    private AppointmentServiceImpl appointmentServiceImpl;
 
     public List<Appointment> retrieveAllAppointments(){
 
         try {
-            List<Appointment> appointments = appointmentService.retrieveAllAppointments();
+            List<Appointment> appointments = appointmentServiceImpl.retrieveAllAppointments();
             return appointments;
         } catch (Exception e){
             throw new GraphQLException(e.getMessage());
@@ -33,7 +33,7 @@ public class AppointmentQueryResolver implements GraphQLQueryResolver {
         }
 
         try {
-            Appointment appointment = appointmentService.retrieveAppointmentById(id);
+            Appointment appointment = appointmentServiceImpl.retrieveAppointmentById(id);
             return appointment;
         } catch (Exception e){
             throw new GraphQLException(e.getMessage());
@@ -46,7 +46,7 @@ public class AppointmentQueryResolver implements GraphQLQueryResolver {
             throw new GraphQLException("appointment status cannot be determined");
         }
         try {
-            List<Appointment> appointments = appointmentService.retrieveAppointmentsByStatus(status);
+            List<Appointment> appointments = appointmentServiceImpl.retrieveAppointmentsByStatus(status);
             return appointments;
         } catch (Exception e){
             throw new GraphQLException(e.getMessage());
@@ -58,7 +58,7 @@ public class AppointmentQueryResolver implements GraphQLQueryResolver {
             throw new GraphQLException("appointment status cannot be determined");
         }
         try {
-            List<Appointment> appointments = appointmentService.retrievePatientsAppointments(patientId, status);
+            List<Appointment> appointments = appointmentServiceImpl.retrievePatientsAppointments(patientId, status);
             return appointments;
         } catch (Exception e){
             throw new GraphQLException(e.getMessage());

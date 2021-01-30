@@ -3,13 +3,9 @@ package com.patient.service.graphql;
 import com.patient.domain.model.Patient;
 import com.patient.repository.DocRepo;
 import com.patient.repository.PatientRepo;
-import graphql.GraphQL;
-import graphql.GraphQLException;
 import org.easymock.EasyMock;
 import org.easymock.EasyMockExtension;
 import org.easymock.Mock;
-import org.hibernate.validator.constraints.SafeHtml;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
@@ -20,7 +16,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @ExtendWith(EasyMockExtension.class)
-public class TestPatientService {
+public class TestPatientServiceImpl {
 
     @Mock
     private DocRepo docRepo;
@@ -29,7 +25,7 @@ public class TestPatientService {
     private PatientRepo patientRepo;
 
     @Mock
-    private DocService docService;
+    private DocServiceImpl docService;
 
     @Test
     public void test_retrieveAllPatientsInfo_success() throws Exception {
@@ -53,7 +49,7 @@ public class TestPatientService {
         EasyMock.expect(patientRepo.findAll()).andReturn(patients);
         EasyMock.replay(patientRepo);
 
-        PatientService service = new PatientService();
+        PatientServiceImpl service = new PatientServiceImpl();
         service.setPatientRepo(patientRepo);
 
         service.retrieveAllPatientsInfo();
@@ -72,7 +68,7 @@ public class TestPatientService {
                 .phone("123-456-7890")
                 .build();
 
-        PatientService service = new PatientService();
+        PatientServiceImpl service = new PatientServiceImpl();
         service.setPatientRepo(patientRepo);
         service.setDocService(docService);
 

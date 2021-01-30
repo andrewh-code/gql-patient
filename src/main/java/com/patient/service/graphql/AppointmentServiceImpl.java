@@ -2,12 +2,11 @@ package com.patient.service.graphql;
 
 import com.patient.domain.model.Appointment;
 import com.patient.domain.model.AppointmentStatus;
-import com.patient.domain.model.Doc;
 import com.patient.domain.model.graphInput.AppointmentInput;
 import com.patient.repository.AppointmentRepo;
 import com.patient.repository.DocRepo;
 import com.patient.repository.PatientRepo;
-import graphql.GraphQLException;
+import com.patient.service.AppointmentService;
 import io.micrometer.core.instrument.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,7 +18,7 @@ import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 @Service
-public class AppointmentService {
+public class AppointmentServiceImpl implements AppointmentService {
 
     @Autowired
     private PatientRepo patientRepo;

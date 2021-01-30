@@ -1,21 +1,19 @@
 package com.patient.graphql.resolvers.query;
 
 import com.patient.domain.model.Patient;
-import com.patient.repository.PatientRepo;
-import com.patient.service.graphql.PatientService;
+import com.patient.service.graphql.PatientServiceImpl;
 import graphql.GraphQLException;
 import graphql.kickstart.tools.GraphQLQueryResolver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.Optional;
 
 @Component
 public class PatientQueryResolver implements GraphQLQueryResolver {
 
     @Autowired
-    private PatientService patientService;
+    private PatientServiceImpl patientService;
 
     public List<Patient> retrieveAllPatientsInfo() throws GraphQLException{
         try {
@@ -43,7 +41,7 @@ public class PatientQueryResolver implements GraphQLQueryResolver {
 
     // for testing
     // how do you inject it while testing?
-    public void setPatientService(PatientService patientService){
+    public void setPatientService(PatientServiceImpl patientService){
         this.patientService = patientService;
     }
 }

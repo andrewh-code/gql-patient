@@ -4,7 +4,6 @@ import com.patient.domain.model.Doc;
 import com.patient.domain.model.Title;
 import com.patient.domain.model.graphInput.DocInput;
 import com.patient.repository.DocRepo;
-import com.patient.repository.PatientRepo;
 import org.easymock.EasyMock;
 import org.easymock.EasyMockExtension;
 import org.easymock.Mock;
@@ -13,7 +12,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
 @ExtendWith(EasyMockExtension.class)
-public class TestDocService {
+public class TestDocServiceImpl {
 
     @Mock
     private DocRepo mockRepo;
@@ -22,7 +21,7 @@ public class TestDocService {
     public void test_createNewDoctor_success(){
 
 //        DocRepo mockRepo = EasyMock.createMock(DocRepo.class);
-        DocService service = new DocService();
+        DocServiceImpl service = new DocServiceImpl();
         service.setDocRepo(mockRepo);
 
         Doc mockDoc = new Doc();
@@ -42,7 +41,7 @@ public class TestDocService {
 
     @Test
     public void test_updateDoctor_success() {
-        DocService service = new DocService();
+        DocServiceImpl service = new DocServiceImpl();
         service.setDocRepo(mockRepo);
 
         Doc mockDoc = EasyMock.createMock(Doc.class);
@@ -75,7 +74,7 @@ public class TestDocService {
 
     @Test
     public void test_updateDoctor_one_field_success() {
-        DocService service = new DocService();
+        DocServiceImpl service = new DocServiceImpl();
         service.setDocRepo(mockRepo);
 
         Doc mockDoc = EasyMock.createMock(Doc.class);

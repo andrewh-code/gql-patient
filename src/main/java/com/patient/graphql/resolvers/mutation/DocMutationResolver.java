@@ -1,10 +1,9 @@
 package com.patient.graphql.resolvers.mutation;
 
-import com.patient.PatientApp;
 import com.patient.domain.model.Doc;
 import com.patient.domain.model.graphInput.DocInput;
 import com.patient.repository.DocRepo;
-import com.patient.service.graphql.DocService;
+import com.patient.service.graphql.DocServiceImpl;
 import graphql.GraphQLException;
 import graphql.kickstart.tools.GraphQLMutationResolver;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +16,7 @@ public class DocMutationResolver implements GraphQLMutationResolver {
     private DocRepo docRepo;
 
     @Autowired
-    private DocService docService;
+    private DocServiceImpl docService;
 
     public Doc createNewDoctor(DocInput docInput) {
 

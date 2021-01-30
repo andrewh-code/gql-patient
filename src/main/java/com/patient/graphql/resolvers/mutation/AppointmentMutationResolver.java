@@ -5,9 +5,9 @@ import com.patient.domain.model.AppointmentStatus;
 import com.patient.domain.model.Doc;
 import com.patient.domain.model.Patient;
 import com.patient.domain.model.graphInput.AppointmentInput;
-import com.patient.service.graphql.AppointmentService;
-import com.patient.service.graphql.DocService;
-import com.patient.service.graphql.PatientService;
+import com.patient.service.graphql.AppointmentServiceImpl;
+import com.patient.service.graphql.DocServiceImpl;
+import com.patient.service.graphql.PatientServiceImpl;
 import graphql.GraphQLException;
 import graphql.kickstart.tools.GraphQLMutationResolver;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,11 +19,11 @@ import java.time.ZonedDateTime;
 public class AppointmentMutationResolver implements GraphQLMutationResolver {
 
     @Autowired
-    private AppointmentService appointmentService;
+    private AppointmentServiceImpl appointmentServiceImpl;
     @Autowired
-    private DocService docService;
+    private DocServiceImpl docService;
     @Autowired
-    private PatientService patientService;
+    private PatientServiceImpl patientService;
 
     public Appointment createNewAppointment(AppointmentInput appointmentInput){
 
@@ -50,7 +50,7 @@ public class AppointmentMutationResolver implements GraphQLMutationResolver {
                     .appointmentStatus(AppointmentStatus.UPCOMING)
                     .build();
 
-            newAppointment = appointmentService.createNewAppointment(newAppointment);
+            newAppointment = appointmentServiceImpl.createNewAppointment(newAppointment);
             return newAppointment;
 
         } catch (Exception e){
@@ -62,12 +62,12 @@ public class AppointmentMutationResolver implements GraphQLMutationResolver {
 
         // check to see if appointment exists
         try {
-            Appointment existingAppointment = appointmentService.retrieveAppointmentById(appointmentId);
+            Appointment existingAppointment = appointmentServiceImpl.retrieveAppointmentById(appointmentId);
             if (existingAppointment == null){
                 throw new Exception("Unable to find appointment with id: " + appointmentId);
             }
 
-            existingAppointment = appointmentService.updateAppointment(existingAppointment, appointmentInput);
+            existingAppointment = appointmentServiceImpl.updateAppointment(existingAppointment, appointmentInput);
 
             return existingAppointment;
 

@@ -3,9 +3,8 @@ package com.patient.service.graphql;
 import com.patient.domain.model.Doc;
 import com.patient.domain.model.Patient;
 import com.patient.domain.model.graphInput.PatientInput;
-import com.patient.repository.DocRepo;
 import com.patient.repository.PatientRepo;
-import graphql.GraphQL;
+import com.patient.service.PatientService;
 import graphql.GraphQLException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,13 +13,13 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 @Service
-public class PatientService {
+public class PatientServiceImpl implements PatientService {
 
     @Autowired
     private PatientRepo patientRepo;
 
     @Autowired
-    private DocService docService;
+    private DocServiceImpl docService;
 
 
     public List<Patient> retrieveAllPatientsInfo() throws Exception{
@@ -78,7 +77,7 @@ public class PatientService {
     public void setPatientRepo(PatientRepo patientRepo){
         this.patientRepo = patientRepo;
     }
-    public void setDocService(DocService docService){
+    public void setDocService(DocServiceImpl docService){
         this.docService = docService;
     }
 }
