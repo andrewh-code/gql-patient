@@ -30,6 +30,8 @@ public class Appointment {
     private Long patientId;
     @Column(name="scheduled_date")
     private ZonedDateTime scheduledDate;
+    @Column(name="scheduled_end")
+    private ZonedDateTime scheduledEnd;
     @Column(name="attended")
     private AppointmentStatus appointmentStatus;
     @Column(name="notes")
@@ -38,13 +40,15 @@ public class Appointment {
     public Appointment(){}
 
     public Appointment(Long id, Long docId, Long patientId,
-                       ZonedDateTime scheduledDate, AppointmentStatus appointmentStatus,
+                       ZonedDateTime scheduledDate, ZonedDateTime scheduledEnd,
+                       AppointmentStatus appointmentStatus,
                        String notes) {
         this.id = id;
         this.notes = notes;
         this.docId = docId;
         this.patientId = patientId;
         this.scheduledDate = scheduledDate;
+        this.scheduledEnd = scheduledEnd;
         this.appointmentStatus = appointmentStatus;
     }
 }

@@ -6,9 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
+import java.time.*;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
 
@@ -28,11 +26,11 @@ public class DataLoader {
         loadPatients(docs.get(0));
         Patient patient = loadNewPatient();
         updateNewPatient(patient, docs.get(1));
-        createAppointment(patient, docs.get(1), 5);
-        createAppointment(patient, docs.get(2), 5);
-        createAppointment(patient, docs.get(1), 10);
-        createAppointment(patient, docs.get(2), 20);
-        createAppointment(patient, docs.get(1), -10);
+        createAppointment(patient, docs.get(1), 5, 8, 30);
+        createAppointment(patient, docs.get(2), 5, 9, 0);
+        createAppointment(patient, docs.get(1), 10, 10, 0);
+        createAppointment(patient, docs.get(2), 20, 11, 0);
+        createAppointment(patient, docs.get(1), -10, 11, 30);
         updateAppointment(1, AppointmentStatus.ATTENDED);
     }
 
@@ -107,15 +105,23 @@ public class DataLoader {
     }
 
 
-    private void createAppointment(Patient patient, Doc doc, long daysFromNow) {
-        ZonedDateTime daysFormNowZoned = ZonedDateTime.now()
-                .plus(daysFromNow, ChronoUnit.DAYS)
-                .plus(4, ChronoUnit.HOURS);
+    private void createAppointment(Patient patient, Doc doc, int daysFromNow, int hour, int minutes) {
+
+        ZonedDateTime today = ZonedDateTime.now();
+        int month = today.getMonthValue();
+        int day = today.getDayOfYear() + daysFromNow;
+        int year = today.getYear();
+
+        ZonedDateTime scheduled = ZonedDateTime.of(LocalDate.ofYearDay(year, day),
+                LocalTime.of(hour, minutes),
+                ZoneId.systemDefault());
+        ZonedDateTime scheduledEnd = scheduled.plus(30, ChronoUnit.MINUTES);
 
         Appointment appointment = Appointment.appointmentBuilder()
                 .docId(doc.getId())
                 .patientId(patient.getId())
-                .scheduledDate(daysFormNowZoned)
+                .scheduledDate(scheduled)
+                .scheduledEnd(scheduledEnd)
                 .appointmentStatus(AppointmentStatus.UPCOMING)
                 .build();
 
