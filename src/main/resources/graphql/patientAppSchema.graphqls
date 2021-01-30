@@ -42,5 +42,8 @@ type Query {
 
     #Retrieve appointments by patient id. If appointment status is null, retrieve all appointments
     retrievePatientsAppointments(patientId: ID!, status: AppointmentStatus): [Appointment]
+
+    #Retrieve appointments by doctor id. If appointment status is null, retrieve all appointments
+    retrieveDoctorsAppointments(docId: ID!, status: AppointmentStatus): [Appointment]
 }
 

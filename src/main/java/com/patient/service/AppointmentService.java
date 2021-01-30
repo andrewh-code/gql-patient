@@ -20,4 +20,8 @@ public interface AppointmentService {
 
     Appointment updateAppointment(Appointment appointment, AppointmentInput appointmentInput) throws Exception;
 
+    List<Appointment> retrievePatientsAppointments(Long patientId, AppointmentStatus status);
+
+    List<Appointment> retrieveDoctorsAppointments(Long docId, AppointmentStatus status);
+
 }
