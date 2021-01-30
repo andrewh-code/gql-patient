@@ -20,7 +20,7 @@ public class AppointmentQueryResolver implements GraphQLQueryResolver {
     public List<Appointment> retrieveAllAppointments(){
 
         try {
-            List<Appointment> appointments = appointmentServiceImpl.retrieveAllAppointments();
+            List<Appointment> appointments = appointmentService.retrieveAllAppointments();
             return appointments;
         } catch (Exception e){
             throw new GraphQLException(e.getMessage());
@@ -34,7 +34,7 @@ public class AppointmentQueryResolver implements GraphQLQueryResolver {
         }
 
         try {
-            Appointment appointment = appointmentServiceImpl.retrieveAppointmentById(id);
+            Appointment appointment = appointmentService.retrieveAppointmentById(id);
             return appointment;
         } catch (Exception e){
             throw new GraphQLException(e.getMessage());
@@ -47,7 +47,7 @@ public class AppointmentQueryResolver implements GraphQLQueryResolver {
             throw new GraphQLException("appointment status cannot be determined");
         }
         try {
-            List<Appointment> appointments = appointmentServiceImpl.retrieveAppointmentsByStatus(status);
+            List<Appointment> appointments = appointmentService.retrieveAppointmentsByStatus(status);
             return appointments;
         } catch (Exception e){
             throw new GraphQLException(e.getMessage());
@@ -59,7 +59,7 @@ public class AppointmentQueryResolver implements GraphQLQueryResolver {
             throw new GraphQLException("appointment status cannot be determined");
         }
         try {
-            List<Appointment> appointments = appointmentServiceImpl.retrievePatientsAppointments(patientId, status);
+            List<Appointment> appointments = appointmentService.retrievePatientsAppointments(patientId, status);
             return appointments;
         } catch (Exception e){
             throw new GraphQLException(e.getMessage());
@@ -71,7 +71,7 @@ public class AppointmentQueryResolver implements GraphQLQueryResolver {
             throw new GraphQLException("appointment status cannot be determined");
         }
         try {
-            List<Appointment> appointments = appointmentServiceImpl.retrieveDoctorsAppointments(docId, status);
+            List<Appointment> appointments = appointmentService.retrieveDoctorsAppointments(docId, status);
             return appointments;
         } catch (Exception e){
             throw new GraphQLException(e.getMessage());
