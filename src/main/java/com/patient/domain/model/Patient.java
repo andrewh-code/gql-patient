@@ -40,9 +40,13 @@ public class Patient {
     // don't know exact validation for health card so just validate it's not blank and no numbers
     @Column(name="healthcard")
     private String healthCard;
+    // this will be "mocked" for retrieving insurance benefits from the insurance company
+//    private Insurance insurance;
 
     @Builder
-    public Patient(Long id, Set<Doc> docs, String firstName, String lastName, String email, String phone, Date dob, String healthCard) throws PatientValidationException {
+    public Patient(Long id, Set<Doc> docs, String firstName,
+                   String lastName, String email, String phone,
+                   Date dob, String healthCard) throws PatientValidationException {
         this.id = id;
         this.docs = docs;
         this.firstName = firstName;
@@ -52,6 +56,7 @@ public class Patient {
         this.dob = dob;
         this.healthCard = healthCard;
         validateHealthCard();
+//        this.insurance = insurance;
     }
 
     public Patient(){}

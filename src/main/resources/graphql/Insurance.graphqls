@@ -1,0 +1,7 @@
+type Insurance {
+    insuranceCompanyId: ID
+    insuranceCompany: String
+    memberId: ID
+    planId: ID
+    benefitsPlan: String
+}
