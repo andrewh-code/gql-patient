@@ -40,7 +40,7 @@ type Query {
     retrievePatientInfoById(id: ID): Patient
 
     #Retrieve all appointments
-    retrieveAllAppointments: [Appointment!]
+    retrieveAllAppointments(skip: Int = 0, first: Int = 0): [Appointment!]
 
     #Retrieve appointmet by its ID
     retrieveAppointmentById(id: ID): Appointment

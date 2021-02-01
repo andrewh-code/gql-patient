@@ -17,10 +17,10 @@ public class AppointmentQueryResolver implements GraphQLQueryResolver {
     @Autowired
     private AppointmentService appointmentService;
 
-    public List<Appointment> retrieveAllAppointments(){
+    public List<Appointment> retrieveAllAppointments(int skip, int first){
 
         try {
-            List<Appointment> appointments = appointmentService.retrieveAllAppointments();
+            List<Appointment> appointments = appointmentService.retrieveAllAppointments(skip, first);
             return appointments;
         } catch (Exception e){
             throw new GraphQLException(e.getMessage());

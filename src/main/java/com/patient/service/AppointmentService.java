@@ -10,7 +10,7 @@ import java.util.List;
 @Service
 public interface AppointmentService {
 
-    List<Appointment> retrieveAllAppointments() throws Exception;
+    List<Appointment> retrieveAllAppointments(int skip, int first) throws Exception;
 
     Appointment retrieveAppointmentById(Long id) throws Exception;
 

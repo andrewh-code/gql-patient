@@ -31,9 +31,13 @@ public class AppointmentServiceImpl implements AppointmentService {
     private AppointmentRepo appointmentRepo;
 
 
-    public List<Appointment> retrieveAllAppointments() throws Exception {
+    public List<Appointment> retrieveAllAppointments(int skip, int first) throws Exception {
 
-        return appointmentRepo.findAll();
+        return appointmentRepo.findAll()
+                .stream()
+                .skip(skip)
+                .limit(first)
+                .collect(Collectors.toList());
     }
 
     public Appointment retrieveAppointmentById(Long id) throws Exception {
