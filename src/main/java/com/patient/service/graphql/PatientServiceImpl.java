@@ -22,7 +22,7 @@ public class PatientServiceImpl implements PatientService {
     private DocServiceImpl docService;
 
 
-    public List<Patient> retrieveAllPatientsInfo() throws Exception{
+    public List<Patient> retrievePatientsInfo() throws Exception{
         List<Patient> patients = patientRepo.findAll();
         return patients;
     }

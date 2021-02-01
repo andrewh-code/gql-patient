@@ -52,7 +52,7 @@ public class TestPatientServiceImpl {
         PatientServiceImpl service = new PatientServiceImpl();
         service.setPatientRepo(patientRepo);
 
-        service.retrieveAllPatientsInfo();
+        service.retrievePatientsInfo();
 
 
         EasyMock.verify(patientRepo);

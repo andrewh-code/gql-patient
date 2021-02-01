@@ -10,7 +10,7 @@ import java.util.List;
 @Service
 public interface PatientService {
 
-    List<Patient> retrieveAllPatientsInfo() throws Exception;
+    List<Patient> retrievePatientsInfo() throws Exception;
 
     Patient retrievePatientInfoById(Long Id);
 

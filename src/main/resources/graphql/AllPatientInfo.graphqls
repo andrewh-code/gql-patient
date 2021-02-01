@@ -1,0 +1,4 @@
+type AllPatientInfo {
+    insurance: Insurance
+    test: String!
+}

@@ -36,13 +36,13 @@ public class TestPatientQueryResolver {
         List<Patient> patients = Arrays.asList(p1, p2);
 
 
-        EasyMock.expect(patientService.retrieveAllPatientsInfo()).andReturn(patients);
+        EasyMock.expect(patientService.retrievePatientsInfo()).andReturn(patients);
         EasyMock.replay(patientService);
 
         PatientQueryResolver resolver = new PatientQueryResolver();
         resolver.setPatientService(patientService);
 
-        List<Patient> output = resolver.retrieveAllPatientsInfo();
+        List<Patient> output = resolver.retrievePatientsInfo();
 
         EasyMock.verify(patientService);
     }
@@ -52,11 +52,11 @@ public class TestPatientQueryResolver {
         PatientQueryResolver resolver = new PatientQueryResolver();
         resolver.setPatientService(patientService);
 
-        EasyMock.expect(patientService.retrieveAllPatientsInfo()).andThrow(new Exception("error"));
+        EasyMock.expect(patientService.retrievePatientsInfo()).andThrow(new Exception("error"));
         EasyMock.replay(patientService);
 
         try {
-            resolver.retrieveAllPatientsInfo();
+            resolver.retrievePatientsInfo();
             Assertions.fail("expected to throw");
         } catch (GraphQLException e){
             Assertions.assertEquals("error", e.getMessage());

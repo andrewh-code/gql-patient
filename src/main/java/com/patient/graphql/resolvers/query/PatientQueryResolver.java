@@ -1,5 +1,6 @@
 package com.patient.graphql.resolvers.query;
 
+import com.patient.domain.model.AllPatientInfo;
 import com.patient.domain.model.Patient;
 import com.patient.service.PatientService;
 import com.patient.service.graphql.PatientServiceImpl;
@@ -16,9 +17,9 @@ public class PatientQueryResolver implements GraphQLQueryResolver {
     @Autowired
     private PatientService patientService;
 
-    public List<Patient> retrieveAllPatientsInfo() throws GraphQLException{
+    public List<Patient> retrievePatientsInfo() throws GraphQLException{
         try {
-            List<Patient> patients = patientService.retrieveAllPatientsInfo();
+            List<Patient> patients = patientService.retrievePatientsInfo();
             return patients;
         } catch (Exception e){
             throw new GraphQLException(e.getMessage());
@@ -37,6 +38,14 @@ public class PatientQueryResolver implements GraphQLQueryResolver {
             throw new GraphQLException(e.getMessage());
         }
         return patient;
+    }
+
+    public AllPatientInfo retrieveAllPatientInfo(Long id) throws GraphQLException {
+
+        AllPatientInfo info = new AllPatientInfo();
+        info.setTest("testtesttest");
+
+        return info;
     }
 
 

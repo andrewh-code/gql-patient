@@ -17,10 +17,15 @@ type Mutation {
     #Update an appointment (ie. reschedule, cancel, update based on doctor's prognosis, etc)
     updateAppointment(id: ID!, input: AppointmentInput!): Appointment!
 
+    #remove doctor info from the practice
     removeDoctor(id: ID): String!
 }
 
 type Query {
+    # going to do a nice
+    # use async operation for this
+    retrieveAllPatientInfo(id: ID): AllPatientInfo!
+
     #Retrieve all doctors/practitioners at the practice
     retrieveAllDoctors: [Doc!]
 
@@ -28,7 +33,7 @@ type Query {
     retrieveDoctorById(id: ID): Doc
 
     #Retrieve all patients at the practice
-    retrieveAllPatientsInfo: [Patient!]
+    retrievePatientsInfo: [Patient!]
 
     #Retrieve specific patient's information
     retrievePatientInfoById(id: ID): Patient
