@@ -17,4 +17,6 @@ public interface DocService {
 
     List<Doc> retrieveAllDoctors();
 
+    void removeDoc(Long id);
+
 }

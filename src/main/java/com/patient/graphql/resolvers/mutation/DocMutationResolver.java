@@ -4,6 +4,7 @@ import com.patient.domain.model.Doc;
 import com.patient.domain.model.graphInput.DocInput;
 import com.patient.repository.DocRepo;
 import com.patient.service.graphql.DocServiceImpl;
+import graphql.GraphQL;
 import graphql.GraphQLException;
 import graphql.kickstart.tools.GraphQLMutationResolver;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,4 +46,20 @@ public class DocMutationResolver implements GraphQLMutationResolver {
 
         return existingDoc;
     }
+
+    public String removeDoctor(Long Id) throws GraphQLException {
+
+        try {
+            if (Id == null){
+                throw new GraphQLException("doc id is either blank or null");
+            }
+
+            docService.removeDoc(Id);
+            return "Successfully deleted doctor with id: " + Id;
+        } catch (Exception e){
+            throw new GraphQLException("could not delete doc with id: " + Id);
+        }
+    }
+
+
 }

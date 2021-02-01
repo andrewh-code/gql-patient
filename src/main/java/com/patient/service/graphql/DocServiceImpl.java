@@ -59,8 +59,14 @@ public class DocServiceImpl implements DocService {
         return docRepo.findAll();
     }
 
+    public void removeDoc(Long id) {
+        docRepo.deleteById(id);
+    }
+
     // testing purposes
     public void setDocRepo(DocRepo docRepo){
         this.docRepo = docRepo;
     }
+
+
 }

@@ -16,6 +16,8 @@ type Mutation {
 
     #Update an appointment (ie. reschedule, cancel, update based on doctor's prognosis, etc)
     updateAppointment(id: ID!, input: AppointmentInput!): Appointment!
+
+    removeDoctor(id: ID): String!
 }
 
 type Query {

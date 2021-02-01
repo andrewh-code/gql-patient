@@ -92,4 +92,16 @@ public class DocController {
             return new AppResponse(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
+
+    @DeleteMapping("/doctors/{id}")
+    @ResponseBody
+    public AppResponse removeDoc(@PathVariable Long id){
+
+        try {
+            docRepo.deleteById(id);
+            return new AppResponse("doctor with id: " + id + " successfully removed", HttpStatus.OK);
+        } catch (Exception e) {
+            return new AppResponse(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }
