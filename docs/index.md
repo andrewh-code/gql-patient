@@ -12,6 +12,7 @@ chiropractors.
 - creation/update of a patient information
 - scheduling new appointments
 - updating appointments
+- removing a doctor from the clinic/network
 
 ### Technical Details
 - GraphQL
