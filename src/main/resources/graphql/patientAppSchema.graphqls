@@ -24,6 +24,7 @@ type Mutation {
 type Query {
     # going to do a nice
     # use async operation for this
+    # retrieve a patient's information including their insurance info
     retrieveAllPatientInfo(id: ID): AllPatientInfo!
 
     #Retrieve all doctors/practitioners at the practice
