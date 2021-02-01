@@ -43,6 +43,8 @@ public class PatientQueryResolver implements GraphQLQueryResolver {
     public AllPatientInfo retrieveAllPatientInfo(Long id) throws GraphQLException {
 
         AllPatientInfo info = new AllPatientInfo();
+        Patient patient = patientService.retrievePatientInfoById(id);
+        info.setPatient(patient);
         info.setTest("testtesttest");
 
         return info;
