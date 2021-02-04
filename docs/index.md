@@ -6,6 +6,11 @@ the creation and scheduling of appointments for a patient and a practitioner. Th
 private medical practice (not a hospital) that has multiple health care providers including doctors, therapists, and
 chiropractors.
 
+
+## Demo
+[Project GQL Patient](https://gql-patient.herokuapp.com/graphiql)
+
+review the queries/mutations examples in the [GraphQL Section](#GraphQL) or the [GraphQL page](graphql/gql_api.md)
 ### Use Cases
 
 - creation/update of a doctor/practitioner information
@@ -89,6 +94,8 @@ retrieveDoctorsAppointments(docId: ID!, status: AppointmentStatus): [Appointment
     #remove doctor info from the practice
     removeDoctor(id: ID): String!
 ```
+
+[click here for sample queries/mutations from graphiql](graphql/gql_api.md)
 
 ### REST Endpoints
 *Note: REST endpoints were not the focus of this project but as a means of a way to compare how a backend system is developed with rest endpoints and adding graphql queries to it
