@@ -19,8 +19,8 @@ public class DocServiceImpl implements DocService {
     private DocRepo docRepo;
 
     // turn this into saveDoc function
-    public void saveDoctor(Doc newDoc){
-        docRepo.save(newDoc);
+    public void saveDoctor(Doc newDoc) {
+            docRepo.save(newDoc);
     }
 
     public void updateDoctor(Doc existingDoc, DocInput docInput) {
@@ -33,7 +33,7 @@ public class DocServiceImpl implements DocService {
                 !docInput.getLastName().equals(existingDoc.getLastName())){
             existingDoc.setLastName(docInput.getLastName());
         }
-        if (StringUtils.isNotBlank(docInput.getTitle().toString()) &&
+        if (docInput.getTitle() != null &&
                 !docInput.getTitle().equals(existingDoc.getTitle())){
             existingDoc.setTitle(docInput.getTitle());
         }

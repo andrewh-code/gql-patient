@@ -33,8 +33,11 @@ public class TestDocServiceImpl {
         EasyMock.expect(mockRepo.save(mockDoc))
                 .andReturn(mockDoc);
         EasyMock.replay(mockRepo);
-
-        service.saveDoctor(mockDoc);
+        try {
+            service.saveDoctor(mockDoc);
+        } catch (Exception e){
+            Assertions.fail("did not expect exception to be thrown");
+        }
 
         EasyMock.verify(mockRepo);
     }

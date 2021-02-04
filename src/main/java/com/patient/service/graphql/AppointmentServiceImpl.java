@@ -162,4 +162,8 @@ public class AppointmentServiceImpl implements AppointmentService {
     }
 
 
+    public void setAppointmentRepo(AppointmentRepo appointmentRepo){
+        this.appointmentRepo = appointmentRepo;
+    }
+
 }
